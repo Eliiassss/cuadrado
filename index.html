@@ -3,24 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cambiar Color de Cuadrado</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Prueba 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    #container {
+      position: relative;
+    }
+
+    #square {
+      width: 200px;
+      height: 200px;
+      background-color: white;
+      border: 2px solid black;
+    }
+
+    #color-palette {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .color {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div id="square"></div>
-  <button onclick="openColorPicker()">Seleccionar Color</button>
-
+  <div id="container">
+    <div id="square" contenteditable="true"></div>
+    <div id="color-palette">
+      <div class="color" style="background-color: red;" onclick="changeColor('red')"></div>
+      <div class="color" style="background-color: blue;" onclick="changeColor('blue')"></div>
+      <div class="color" style="background-color: green;" onclick="changeColor('green')"></div>
+      <div class="color" style="background-color: yellow;" onclick="changeColor('yellow')"></div>
+      <div class="color" style="background-color: orange;" onclick="changeColor('orange')"></div>
+    </div>
+  </div>
+  
   <script>
-    function openColorPicker() {
-      // Abrir ventana secundaria para seleccionar color
-      var colorPickerWindow = window.open("color_picker.html", "_blank", "width=300,height=200");
-      
-      // Función para recibir el color seleccionado desde la ventana secundaria
-      window.receiveColor = function(color) {
-        const square = document.getElementById("square");
-        square.style.backgroundColor = color;
-      };
+    // Función para cambiar el color del texto en el cuadrado
+    function changeColor(color) {
+      document.getElementById('square').style.color = color;
+      localStorage.setItem("color", color); // Guardar el color seleccionado
     }
+
+    // Cargar el texto y el color guardado al cargar la página
+    window.onload = function() {
+      var savedText = localStorage.getItem("text");
+      var savedColor = localStorage.getItem("color");
+      if (savedText !== null) {
+        document.getElementById('square').innerText = savedText;
+      }
+      if (savedColor !== null) {
+        document.getElementById('square').style.color = savedColor;
+      }
+    };
+
+    // Guardar el texto y el color cuando cambian
+    document.getElementById('square').addEventListener('input', function() {
+      var text = this.innerText;
+      localStorage.setItem("text", text);
+    });
   </script>
 </body>
 </html>

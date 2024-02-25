@@ -8,36 +8,19 @@
 </head>
 <body>
   <div id="square"></div>
-  <form id="color-form">
-    <label for="color-select">Selecciona un color:</label>
-    <select id="color-select">
-      <option value="black">Negro</option>
-      <option value="blue">Azul</option>
-    </select>
-  </form>
+  <button onclick="openColorPicker()">Seleccionar Color</button>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    function openColorPicker() {
+      // Abrir ventana secundaria para seleccionar color
+      var colorPickerWindow = window.open("color_picker.html", "_blank", "width=300,height=200");
+      
+      // Función para recibir el color seleccionado desde la ventana secundaria
+      window.receiveColor = function(color) {
         const square = document.getElementById("square");
-        const colorForm = document.getElementById("color-form");
-        const colorSelect = document.getElementById("color-select");
-
-        colorForm.addEventListener("change", function() {
-          const selectedColor = colorSelect.value;
-          square.style.backgroundColor = selectedColor;
-
-          // Update the URL with the selected color
-          history.pushState(null, null, `?color=${selectedColor}`);
-        });
-
-        // Check for color parameter in URL on page load
-        const params = new URLSearchParams(window.location.search);
-        const colorParam = params.get('color');
-        if (colorParam) {
-          square.style.backgroundColor = colorParam;
-          colorSelect.value = colorParam;
-        }
-    });
+        square.style.backgroundColor = color;
+      };
+    }
   </script>
 </body>
 </html>

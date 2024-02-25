@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambiar Color de Cuadrado</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="square"></div>
+  <form id="color-form">
+    <label for="color-select">Selecciona un color:</label>
+    <select id="color-select">
+      <option value="black">Negro</option>
+      <option value="blue">Azul</option>
+    </select>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const square = document.getElementById("square");
+        const colorForm = document.getElementById("color-form");
+        const colorSelect = document.getElementById("color-select");
+
+        colorForm.addEventListener("change", function() {
+          const selectedColor = colorSelect.value;
+          square.style.backgroundColor = selectedColor;
+
+          // Update the URL with the selected color
+          history.pushState(null, null, `?color=${selectedColor}`);
+        });
+
+        // Check for color parameter in URL on page load
+        const params = new URLSearchParams(window.location.search);
+        const colorParam = params.get('color');
+        if (colorParam) {
+          square.style.backgroundColor = colorParam;
+          colorSelect.value = colorParam;
+        }
+    });
+  </script>
+</body>
+</html>

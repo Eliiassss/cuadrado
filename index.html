@@ -1,81 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prueba 1</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuadrado con Botones</title>
+<style>
+    #cuadrado {
+        width: 200px;
+        height: 200px;
+        background-color: white;
+        border: 2px solid black;
+        margin: 20px auto;
+        transition: background-color 0.3s ease;
     }
-
-    #container {
-      position: relative;
+    #botones {
+        text-align: center;
+        margin-top: 20px;
     }
-
-    #square {
-      width: 200px;
-      height: 200px;
-      background-color: white;
-      border: 2px solid black;
+    .boton {
+        padding: 10px 20px;
+        margin: 0 10px;
+        border: none;
+        cursor: pointer;
     }
-
-    #color-palette {
-      display: flex;
-      margin-top: 10px;
+    .verde {
+        background-color: green;
+        color: white;
     }
-
-    .color {
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
-      cursor: pointer;
+    .amarillo {
+        background-color: yellow;
     }
-  </style>
+</style>
 </head>
 <body>
-  <div id="container">
-    <div id="square" contenteditable="true"></div>
-    <div id="color-palette">
-      <div class="color" style="background-color: red;" onclick="changeColor('red')"></div>
-      <div class="color" style="background-color: blue;" onclick="changeColor('blue')"></div>
-      <div class="color" style="background-color: green;" onclick="changeColor('green')"></div>
-      <div class="color" style="background-color: yellow;" onclick="changeColor('yellow')"></div>
-      <div class="color" style="background-color: orange;" onclick="changeColor('orange')"></div>
-    </div>
-  </div>
-  
-  <script>
-    // Función para cambiar el color del texto en el cuadrado
-    function changeColor(color) {
-      document.getElementById('square').style.color = color;
-      localStorage.setItem("color", color); // Guardar el color seleccionado
+
+<div id="cuadrado"></div>
+
+<div id="botones">
+    <button class="boton verde" onclick="cambiarColor('green')">Verde</button>
+    <button class="boton amarillo" onclick="cambiarColor('yellow')">Amarillo</button>
+</div>
+
+<script>
+    function cambiarColor(color) {
+        document.getElementById('cuadrado').style.backgroundColor = color;
     }
+</script>
 
-    // Cargar el texto y el color guardado al cargar la página
-    window.onload = function() {
-      var savedText = localStorage.getItem("text");
-      var savedColor = localStorage.getItem("color");
-      if (savedText !== null) {
-        document.getElementById('square').innerText = savedText;
-      }
-      if (savedColor !== null) {
-        document.getElementById('square').style.color = savedColor;
-      }
-    };
-
-    // Guardar el texto y el color cuando cambian
-    document.getElementById('square').addEventListener('input', function() {
-      var text = this.innerText;
-      localStorage.setItem("text", text);
-    });
-  </script>
 </body>
 </html>

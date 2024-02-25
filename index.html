@@ -42,17 +42,16 @@
 </div>
 
 <script>
-    // Función para establecer el color del cuadrado y guardar la selección en una cookie
+    // Función para establecer el color del cuadrado y cambiar la URL
     function cambiarColor(color) {
         document.getElementById('cuadrado').style.backgroundColor = color;
-        document.cookie = "color_seleccionado=" + color;
+        window.location.hash = color;
     }
 
-    // Función para leer la cookie y establecer el color al cargar la página
+    // Función para leer la URL y establecer el color al cargar la página
     window.onload = function() {
-        var cookie = document.cookie.split(';').find(cookie => cookie.includes('color_seleccionado'));
-        if (cookie) {
-            var colorSeleccionado = cookie.split('=')[1];
+        var colorSeleccionado = window.location.hash.substring(1);
+        if (colorSeleccionado) {
             document.getElementById('cuadrado').style.backgroundColor = colorSeleccionado;
         }
     }
